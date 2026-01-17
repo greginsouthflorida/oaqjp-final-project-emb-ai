@@ -1,4 +1,4 @@
-from flask import Flask, \emotionDetector, request
+from flask import Flask, emotionDetector, request
 from EmotionDetection.emotion_detection import emotion_detector
 
 app = Flask("Emotion Detector")
@@ -11,7 +11,7 @@ def sent_analyzer():
     response = emotion_detector(text_to_analyze)
 
     # Return a formatted string with the sentiment label and score
-    return "For the given statement, the system response is {}
+    return "For the given statement, the system response is {}"
 
 @app.route("/")
 def render_index_page():
