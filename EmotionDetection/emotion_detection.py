@@ -25,7 +25,8 @@ def emotion_detector(text_to_analyze):    # function to analyze emotion of text 
     dominant_emotion = scores[emotion]
 
     # Build the output dictionary
-    output = {
+    # output = {     # Use this line to print test results
+    return {
         'anger': scores['anger'],
         'disgust': scores['disgust'],
         'fear': scores['fear'],
@@ -37,4 +38,4 @@ def emotion_detector(text_to_analyze):    # function to analyze emotion of text 
         }
     }
 
-    print(output)
+    # print(output)    # Use this line when displaying test data
