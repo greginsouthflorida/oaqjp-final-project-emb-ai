@@ -17,25 +17,44 @@ def emotion_detector(text_to_analyze):    # function to analyze emotion of text 
     # Parsing the JSON response from the API
     formatted_response = json.loads(response.text)
 
-    # Extracting sentiment label and score from the response
-    scores = formatted_response['emotionPredictions'][0]['emotion']
+    # If the response status code is 200, extract the label and score from the response
+    if response.status_code == 200:
+        # Extracting sentiment label and score from the response
+        scores = formatted_response['emotionPredictions'][0]['emotion']
 
-    # Determine highest score using max function
-    emotion = max(scores, key=scores.get)
-    dominant_emotion = scores[emotion]
+        # Determine highest score using max function
+        emotion = max(scores, key=scores.get)
+        dominant_emotion = scores[emotion]
 
-    # Build the output dictionary
-    # output = {     # Use this line to print test results
-    return {
-        'anger': scores['anger'],
-        'disgust': scores['disgust'],
-        'fear': scores['fear'],
-        'joy': scores['joy'],
-        'sadness': scores['sadness'],
-        'dominant_emotion': {
-            'name': emotion,
-            'score': dominant_emotion
+        # Build the output string
+        # output = {   # Use this line to print test results
+        dom_emot_dic = {	
+            'anger': scores['anger'],
+            'disgust': scores['disgust'],
+            'fear': scores['fear'],
+            'joy': scores['joy'],
+            'sadness': scores['sadness'],
+            'dominant_emotion': {
+                'name': emotion,
+                'score': dominant_emotion
+            }
         }
-    }
 
-    # print(output)    # Use this line when displaying test data
+        dom_emot_rtn = emotion
+        return dom_emot_rtn, dom_emot_dic
+
+    # If the response status code is 500, set dominant_emotion to None
+    elif response.status_code == 500:
+        dom_emot_rtn = None
+
+        dom_emot_dic = {	
+            'anger': None,
+            'disgust': None,
+            'fear': None,
+            'joy': None,
+            'sadness': None,
+            'dominant_emotion': None
+        }
+
+    return dom_emot_rtn, dom_emot_dic
+    # print(output) # Use this line when displaying test data
