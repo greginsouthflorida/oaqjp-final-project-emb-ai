@@ -43,8 +43,8 @@ def emotion_detector(text_to_analyze):    # function to analyze emotion of text 
         dom_emot_rtn = emotion
         return dom_emot_rtn, dom_emot_dic
 
-    # If the response status code is 500, set dominant_emotion to None
-    elif response.status_code == 500:
+    # If the response status code is 400, empty text field, set dominant_emotion to None
+    elif response.status_code == 400:
         dom_emot_rtn = None
 
         dom_emot_dic = {	
@@ -55,6 +55,22 @@ def emotion_detector(text_to_analyze):    # function to analyze emotion of text 
             'sadness': None,
             'dominant_emotion': None
         }
+        
+        return dom_emot_rtn, dom_emot_dic
 
-    return dom_emot_rtn, dom_emot_dic
+    # If the response status code is anything else, set dominant_emotion to Error
+    else:
+        dom_emot_rtn = 'Error'
+
+        dom_emot_dic = {	
+            'anger': 'Error',
+            'disgust': 'Error',
+            'fear': 'Error',
+            'joy': 'Error',
+            'sadness': 'Error',
+            'dominant_emotion': 'There is an error in the app'
+        }
+        
+        return dom_emot_rtn, dom_emot_dic
+
     # print(output) # Use this line when displaying test data
